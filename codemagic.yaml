@@ -1,11 +1,11 @@
 workflows:
-
     sample-workflow:
-
         name: Codemagic Sample Workflow
-
-        max_build_duration: 120
-
         instance_type: mac_mini_m2
-artifacts:
-  - build/**/outputs/apk/**/*.apk
+        scripts:
+            - name: Get dependencies
+              script: flutter packages pub get
+            - name: Build Fat APK
+              script: flutter build apk --release --fat-apk
+        artifacts:
+            - build/app/outputs/flutter-apk/*.apk
